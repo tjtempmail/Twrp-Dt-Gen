@@ -13,9 +13,7 @@ on:
     inputs:
       IMG_URL:
         description: 'Direct URL to boot/recovery image'
-        required: true
-      # IMG_FILE hata diya kyunki mobile par kaam nahi karta
-
+       required: true
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
@@ -26,7 +24,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y python3 python3-pip cpio wget aria2
-        pip3 install twrpdtgen
+        pip3 install git+https://github.com/twrpdtgen/twrpdtgen.git
 
     - name: Download image from URL
       run: |
@@ -50,3 +48,4 @@ jobs:
         body: Automatically generated device tree for TWRP.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
