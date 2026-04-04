@@ -1,8 +1,7 @@
 name: Make TWRP Device
 
-# 👇 YEH PERMISSIONS BLOCK ADD KAREIN (iss line se lekar end tak)
 permissions:
-  contents: write          # Release banane ke liye ye zaroori hai
+  contents: write
   actions: read
   checks: read
   pull-requests: read
@@ -13,13 +12,17 @@ on:
     inputs:
       IMG_URL:
         description: 'Direct URL to boot/recovery image'
-       required: true
+        required: true
+
 jobs:
   build:
     if: github.event.repository.owner.id == github.event.sender.id
     runs-on: ubuntu-22.04
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
     - name: Install dependencies
       run: |
         sudo apt update
